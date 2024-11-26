@@ -1,0 +1,339 @@
+[[extend "custom-layout.html"]]
+[[block page_head]]
+<style type="text/css">
+    /*.principal {
+
+    }*/
+
+    #nombre {
+        padding-bottom: 5%;
+    }
+
+    #foto_perfil {
+        width: 400px;
+        height: 200px;
+        max-width: 100%; 
+        max-height: 100%; 
+        object-fit: contain;
+    }
+
+    .foto_publicacion {
+        width: 300px;
+        height: 250px;
+    }
+
+    .publicacion {
+        position: relative;
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 1em;
+    }
+
+    .info_pub {
+        position: absolute;
+        bottom: 50px;
+    }
+
+    .titulo_pub {
+        font-size: medium;
+    }
+
+    .menu {
+        position: relative;
+        padding-bottom: 5em;
+        display: flex;
+        width: 100vw;
+        height: 40px;
+    }
+
+
+    .foto_reducida {
+        width: 80px;
+        height: 80px;
+        max-width: 100%; 
+        max-height: 100%; 
+        object-fit: contain;
+    }
+
+    .ocultar {
+        display: none;
+    }
+
+    .mes_agno, .dia_semana, .num_dia_mes {
+        text-align: center;
+    }
+
+    .num_dia_mes{
+        font-size: 1.1em;
+    }
+
+    .num_dia_mes:hover {
+        cursor: pointer;
+        color:red
+    }
+
+    .prev, .sig {
+        border-radius: 90%;
+        background-color: rgb(69, 144, 241);
+        /* border: 1px solid lightgrey; */
+        color: white;
+        font-size: 2em;
+        width: 3%;
+        user-select: none;
+    }
+
+    .prev {
+        text-align: left;
+    }
+
+    
+    .sig {
+        text-align: right;
+    }
+    
+    .prev:hover, .sig:hover {
+        background-color: rgb(104, 170, 255);
+        color: rgb(218, 218, 218);
+        cursor: pointer;
+    }
+
+    
+    .prev:active, .sig:active {
+        background-color: rgb(51, 107, 182);
+        color: black;
+    }
+
+    .dia_actual_calendario {
+        font-size: 1.7em;
+    }
+
+    .contenedor_calendario{
+        border: 1px solid grey;
+        border-radius: 3%;
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-bottom: 5%;
+    }
+
+    .dia_seleccionado {
+        border-radius: 100%;
+        background-color: rgb(69, 144, 241);
+        width: 1%;
+        color:white
+    }
+
+</style>
+[[end]]
+<!-- <img id="foto_perfil" src="[[#=foto_url]]" alt="" srcset=""> -->
+<!-- Dropdown menu -->
+<div id="contenedor">
+    <header id="cabecera">
+        <h2 id="nombre">Nombre y apellidos</h2>
+        <img src="" alt="" srcset="" id="foto_perfil">
+    </header>
+    <nav class="menu">
+        <ul>
+            <li>mensajes</li>
+            <li>grupos</li>
+            <li id="op_calendario">calendario</li>
+            <li>ajustes</li>
+            <li>cerrar sesión</li>
+        </ul>
+    </nav>
+    <main id="principal">
+        <section class="info">
+            <h4>descripción</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
+                eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        </section>
+        <section class="contenido">
+            <h3>propiedades</h3>
+            <article class="publicacion">
+                <h3 class="titulo_pub">titulo publicación</h3>
+                <img src="" alt="" srcset="" class="foto_publicacion">
+                <ul class="info_pub">
+                    <li>extensión:</li>
+                    <li>localidad</li>
+                    <li>fecha:</li>
+                    <li>estado:</li>
+                </ul>
+            </article>
+            <article class="publicacion">
+                <h3 class="titulo_pub">titulo publicación</h3>
+                <img src="" alt="" srcset="" class="foto_publicacion">
+                <ul class="info_pub">
+                    <li>extensión:</li>
+                    <li>localidad</li>
+                    <li>fecha:</li>
+                    <li>estado:</li>
+                </ul>
+            </article>
+            <article class="publicacion">
+                <h3 class="titulo_pub">titulo publicación</h3>
+                <img src="" alt="" srcset="" class="foto_publicacion">
+                <ul class="info_pub">
+                    <li>extensión:</li>
+                    <li>localidad</li>
+                    <li>fecha:</li>
+                    <li>estado:</li>
+                </ul>
+            </article>
+            <article class="publicacion">
+                <h3 class="titulo_pub">titulo publicación</h3>
+                <img src="" alt="" srcset="" class="foto_publicacion">
+                <ul class="info_pub">
+                    <li>extensión:</li>
+                    <li>localidad</li>
+                    <li>fecha:</li>
+                    <li>estado:</li>
+                </ul>
+            </article>
+        </section>
+    </main>
+</div>
+
+[[block page_scripts]]
+
+<script>
+    document.getElementById("op_calendario").addEventListener("click", function(e) {
+        const contenedor = document.getElementById("contenedor")
+        contenedor.setAttribute("class", "contenedor_calendario")
+        const principal = document.getElementById("principal")
+        principal.replaceChildren()
+        // Poner la imagen y el nombre más pequeños
+        const cabecera = document.getElementById("cabecera")
+        const foto_perfil = document.getElementById("foto_perfil")
+        foto_perfil.removeAttribute("id")
+        foto_perfil.classList.add("foto_reducida")
+        const menu = cabecera.nextElementSibling
+        menu.classList.add("ocultar")
+        const titulo = cabecera.firstElementChild
+        titulo.textContent = dia + " " + fecha_actual.toLocaleDateString('es-ES', {month: "long"}) + " " + agno
+        titulo.setAttribute("class", "dia_actual_calendario")
+        crearCalendario(principal)
+        
+    })
+    
+    let fecha_actual = new Date()
+    let dia = fecha_actual.getDate()
+    let mes = fecha_actual.getMonth()
+    let agno = fecha_actual.getFullYear()
+    const diasSemana = []
+
+    function crearCalendario(principal) {
+        const tabla = document.createElement("table")
+        tabla.setAttribute("id", "tabla_calendario")
+        principal.appendChild(tabla)
+        let fila = ""
+        contador = 0
+        
+        for (let i = 0; i < 7; i++) {
+            fila = document.createElement("tr")
+            fila.setAttribute("class", "fila_calendario")
+            tabla.appendChild(fila)
+            if (i == 0) {
+                th = document.createElement("th")
+                th.textContent = "<"
+                th.setAttribute("class", "prev")
+                th.addEventListener("click",prevDia)
+                fila.appendChild(th)
+                th = document.createElement("th")
+                fila.appendChild(th)
+                th.setAttribute("colspan", 5)
+                th.innerText = fecha_actual.toLocaleDateString('es-ES', {month: "long"}) + " " + agno
+                th.setAttribute("class", "mes_agno")
+                th = document.createElement("th")
+                th.textContent = ">"
+                th.setAttribute("class", "sig")
+                th.addEventListener("click",nextDia)
+                fila.appendChild(th)
+            } else if (i > 1 && i < 7) {
+                for (let j = 0; j < 7; j++) {
+                    contador++
+                    td = document.createElement("td")
+                    td.setAttribute("class", "num_dia_mes")
+                    td.setAttribute("id", "dia_mes_" + contador)
+                    td.addEventListener("click", function(e) {
+                        // e.target
+                        const nueva_ventana = window.open("[[=URL('tarea')]]", "", "width=700, height=500,left=450,top=200")
+                    })
+                    
+                    // td.innerText = dia_inicial.getDate()
+                    fila.appendChild(td)
+                }
+            }
+            if (i == 1) {
+                // Creo los días de la semana
+                for (let j = 0; j < 7; j++) {
+                    fecha = new Date(1970,1,2+j)
+                    diasSemana.push(fecha.toLocaleDateString('es-ES', {weekday: "short"}));
+                    th = document.createElement("th")
+                    th.setAttribute("class", "dia_semana")
+                    th.textContent = diasSemana[j]
+                    fila.appendChild(th)
+                }
+            }
+            
+        }
+        // col_dia_actual = document.getElementById("dia_mes_" + dia)
+        // col_dia_actual.setAttribute("class", "dia_seleccionado")
+        setDiasCalendario(agno, mes)
+
+    }
+    
+    // function seleccionarDia(event) {
+    //     console.log(event.target)
+    // }
+
+    // function getDiaInicial() {
+    //     let dia_inicial = new Date(agno, mes, 1)
+    //     console.log((dia_inicial.getDate()-1) === -1 ? 6: dia_inicial.getDay())
+    // }
+    
+    mes_agno = document.getElementsByClassName("mes_agno")
+
+    function deltaDate(fecha, meses) {
+        return new Date(
+            fecha.getFullYear(),
+            fecha.getMonth() + meses,
+            Math.min(
+                fecha.getDate(),
+                new Date(fecha.getFullYear(), fecha.getMonth() + meses + 1, 0).getDate()
+            )
+        );
+    }
+    
+    // let dias_mes = document.getElementsByClassName("num_dia_mes")
+
+    function setDiasCalendario(agno, mes) {
+        ultimaFechaMes = new Date(agno, mes+1, 0)
+        for (let i = 1; i <= 35; i++) {
+            dia = document.getElementById("dia_mes_" + i)
+            dia.textContent = ""
+            if (i <= ultimaFechaMes.getDate()) {
+                dia.textContent = i
+            }
+        }
+    }
+    
+    
+    
+    function prevDia() {
+        fecha_actual = deltaDate(fecha_actual,-1)
+        mes_agno[0].innerText = fecha_actual.toLocaleDateString('es-ES', {month: "long"}) + " " + fecha_actual.getFullYear()
+        setDiasCalendario(fecha_actual.getFullYear(), fecha_actual.getMonth())
+    }
+
+    function nextDia() {
+        fecha_actual = deltaDate(fecha_actual,1)
+        mes_agno[0].innerText = fecha_actual.toLocaleDateString('es-ES', {month: "long"}) + " " + fecha_actual.getFullYear()
+        setDiasCalendario(fecha_actual.getFullYear(), fecha_actual.getMonth())
+    }
+
+</script>
+
+[[end]]

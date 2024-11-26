@@ -1,0 +1,88 @@
+[[extend "custom-layout.html"]]
+<style>
+  #form-header {
+    padding-bottom: 40px;
+  }
+
+  .auth-container {
+    max-width: 80%;
+    min-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  input:invalid {
+    border: 2px solid red;
+  }
+
+  input:valid {
+    border: 2px solid azure;
+  }
+
+  .error {
+  width: 100%;
+  padding: 0;
+
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+
+  box-sizing: border-box;
+}
+
+</style>
+<div class="auth-container">
+  <header id="form-header">
+    <h3>Registrarse</h3>
+  </header>
+  <section>
+  <form action="[[=URL('register')]]" id="form-registro" method="post">
+    <fieldset class="datos_personales">
+      <input type="text" name="nombre" id="nombre" value="Martin" placeholder="Nombre">
+      <input type="text" name="apellido1" id="apellido1" value="Pereiro" placeholder="Primer apellido">
+      <input type="text" name="apellido2" id="apellido2" value="Gabriel" placeholder="Segundo apellido">
+      <input type="date" name="nacimiento" value="03/09/1992" id="nacimiento">
+      <label for="genero">Género</label>
+      <select name="genero" id="genero">
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+        <option value="O">Otro</option>
+      </select>
+      <input type="tel" name="telefono" id="telefono" value="687123456" placeholder="Número de telefono">
+    </fieldset>
+    <fieldset class="datos_direccion">
+      <input type="text" name="localidad" id="localidad" value="Coruña" placeholder="Localidad">
+      <input type="text" name="cp" id="cp" value="15101" placeholder="Código postal">
+      <input type="text" name="numero" id="numero" value="67" placeholder="numero">
+      <input type="text" name="puerta" id="puerta" value="7º" placeholder="puerta">
+      <input type="text" name="letra" id="letra" value="B" placeholder="letra">
+    </fieldset>
+    <fieldset class="datos_usuario">
+      <input type="text" name="nic" id="nic" value="Gabi92" placeholder="Apodo o sobrenombre">
+      <input type="email" name="email" id="email" value="gab92riel@gmail.com" placeholder="Email">
+      <!-- <span class="error" aria-live="polite"></span> -->
+      <input type="password" name="passw" id="passw" value="Abcd12345." placeholder="Contraseña">
+      <input type="password" name="repasw" id="repassw" value="Abcd12345." placeholder="Repite la contraseña">
+      <p>Tipo de usuario<p>
+      <label for="jardinero">Jardinero</label>
+      <input type="radio" name="usuario" id="jardinero" value="jardinero">
+      <label for="propietario">Propietario</label>
+      <input type="radio" name="usuario" id="propietario" value="propietario">
+    </fieldset>
+    <fieldset class="jardinero" style="display: none;">
+      <input type="number" name="experiencia" placeholder="Años de experiencia">
+      <input type="text" name="empresa" placeholder="Empresa en la que trabaja">
+      <input type="text" name="visibilidad" placeholder="Visibilidad">
+    </fieldset>
+    <input type="submit" id="btn_regist" value="Registrarse">
+  </form>
+  </section>
+</div>
+
+[[block page_scripts]]
+  <!-- <script src="js/enviar.js"></script> -->
+[[end]]

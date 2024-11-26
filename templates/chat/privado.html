@@ -1,0 +1,160 @@
+[[extend "custom-layout.html"]]
+[[block page_head]]
+<style>
+
+    #contenedor {
+        line-height: 100%;
+        background-color: white;
+        
+    }
+    #nombre {
+        font-size: 1em;
+    }
+    #pie {
+        background-color: azure;
+    }
+    #btn_enviar {
+       color: white;
+       width: 15%;
+       padding-bottom: 4%;
+    }
+
+    #btn_enviar:hover {
+        background-color: rgb(2, 96, 184);
+    }
+
+    #caja_texto {
+       padding:1%;
+       width:70%;
+    }
+    #cabecera {
+        
+    }
+    #foto_perfil {
+    }
+    #contenido {
+      /* overflow: auto; */
+      width: 85%;
+      height: 50%;
+      background-color: aliceblue;
+      border: 1px solid lightblue;
+      padding-bottom: 50%;
+      padding-top: 1%;
+      padding-left: 0.5%;
+    }
+    .publicacion {
+        padding-top: 1%;
+        padding-left: 3%;
+        width: 20%;
+        background-color: rgb(0, 162, 255);
+        color: white;
+        border-radius: 4%;
+        margin-bottom: 1%;
+    }
+
+    .fechaHora_mensaje {
+        
+        margin: auto;
+        height: 20px;
+        font-size: 60%;
+    }
+
+    p {
+        margin-bottom: 0%;
+    }
+
+    .texto_parrafo {
+        padding-top: 30%;
+        padding-bottom: 30%;
+        
+    }
+
+
+    /* .msg_[[#nic]] {
+    } */
+</style>
+[[end]]
+
+
+<div id="contenedor">
+    <nav class="menu">
+        
+    </nav>
+    <header id="cabecera">
+        <h2 id="nombre">Nombre y apellidos</h2>
+        <!-- <img src="" alt="" srcset="" id="foto_perfil"> -->
+    </header>
+    <section id="contenido">
+
+    </section>
+    <div id="pie">
+        <input type="text" name="" id="caja_texto">
+        <input type="submit" id="btn_enviar" value="Enviar">
+    </div>
+</div>
+
+[[block page_scripts]]
+<script>
+    const btn_enviar = document.getElementById("btn_enviar")
+    
+    const caja_texto = document.getElementById("caja_texto")
+    
+    const contenido = document.getElementById("contenido")
+
+
+    caja_texto.focus()
+    
+    btn_enviar.addEventListener("click",crear_mensaje,false)
+    
+    function getFechaHora() {
+        fecha_actual = new Date()
+        fechaHora = ""
+        diaMes = fecha_actual.getDate()
+        mes = fecha_actual.getMonth()
+        agno = fecha_actual.getFullYear()
+        hora = fecha_actual.getHours()
+        minutos = fecha_actual.getMinutes()
+        segundos = fecha_actual.getSeconds()
+        fechaHora = `${diaMes}-${mes}-${agno}, ${hora}:${minutos}:${segundos}`
+        return fechaHora
+    }
+
+    let contador = 0
+    function crear_mensaje() {
+       contador++
+       mensaje = caja_texto.value
+       articulo = document.createElement("article")
+       contenido.appendChild(articulo)
+       articulo.setAttribute("class","publicacion")
+       parrafo = document.createElement("p")
+       articulo.appendChild(parrafo)
+       parrafo.setAttribute(
+               "id","mensaje_"+contador
+       )
+       parrafo.setAttribute("class", "texto_mensaje")
+       parrafo.innerText = mensaje
+       sp = document.createElement("time")
+       sp.setAttribute("class", "fechaHora_mensaje")
+       articulo.appendChild(sp)
+       fechaHora = getFechaHora()
+       sp.innerText = fechaHora
+       enviar_mensaje(mensaje,fechaHora)
+       caja_texto.value = ""
+    //    parrafo.setAttribute(
+    //               "class",".msg_"+[[#nic]])
+    }
+
+    // Tendría que recoger el destinatario de algún lado de una lista
+    function enviar_mensaje(mensaje,fechaHora) {
+        fetch('../privado', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                mensaje: mensaje,
+                destinatario: '',
+                fechaHora: fechaHora
+            })
+        })
+    }
+</script>
+[[end]]
